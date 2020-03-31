@@ -21,6 +21,10 @@ export class Studant extends Entity {
   })
   lastName: string;
 
+  @property({
+    type: 'number',
+  })
+  courseId?: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data
