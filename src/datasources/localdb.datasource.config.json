@@ -1,0 +1,6 @@
+{
+  "name": "localdb",
+  "connector": "memory",
+  "localStorage": "",
+  "file": "./data/localdb.json"
+}
