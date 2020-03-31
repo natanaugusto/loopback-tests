@@ -4,3 +4,6 @@ export * from './product.controller';
 export * from './studant.controller';
 export * from './course-studant.controller';
 export * from './course.controller';
+export * from './studant-department.controller';
+export * from './department.controller';
+export * from './studant-address.controller';

@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasOne} from '@loopback/repository';
+import {Department} from './department.model';
+import {Address} from './address.model';
 
 @model({settings: {strict: true}})
 export class Studant extends Entity {
@@ -25,6 +27,12 @@ export class Studant extends Entity {
     type: 'number',
   })
   courseId?: number;
+
+  @belongsTo(() => Department)
+  departmentId: number;
+
+  @hasOne(() => Address)
+  address: Address;
   // Define well-known properties here
 
   // Indexer property to allow additional data

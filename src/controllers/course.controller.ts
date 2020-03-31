@@ -1,30 +1,12 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getFilterSchemaFor,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
+import {Count, CountSchema, Filter, FilterExcludingWhere, repository, Where} from '@loopback/repository';
+import {del, get, getModelSchemaRef, param, patch, post, put, requestBody} from '@loopback/rest';
 import {Course} from '../models';
 import {CourseRepository} from '../repositories';
 
 export class CourseController {
   constructor(
     @repository(CourseRepository)
-    public courseRepository : CourseRepository,
+    public courseRepository: CourseRepository,
   ) {}
 
   @post('/courses', {
