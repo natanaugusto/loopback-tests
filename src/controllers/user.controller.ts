@@ -1,8 +1,10 @@
 // Uncomment these imports to begin using these cool features!
 
+import {authenticate, AuthenticationBindings} from '@loopback/authentication'
 import {inject} from '@loopback/core'
 import {repository} from '@loopback/repository'
-import {getJsonSchemaRef, post, requestBody} from '@loopback/rest'
+import {get, getJsonSchemaRef, post, requestBody} from '@loopback/rest'
+import {UserProfile} from '@loopback/security'
 import {MyServicesBindings, PasswordHasherBindings, TokenServiceBindings} from '../keys'
 import {User} from '../models/user.model'
 import {Credentials, UserRepository} from '../repositories/user.repository'
@@ -41,6 +43,7 @@ export class UserController {
     validateCredentials(userData)
     userData.password = await this.hasher.hashPassword(userData.password)
     const savedUser = await this.userRepository.create(userData)
+    delete savedUser.password
     return savedUser
   }
 
@@ -70,4 +73,12 @@ export class UserController {
     return Promise.resolve({token})
   }
 
+  @get('/users/me')
+  @authenticate('jwt')
+  me(
+    @inject(AuthenticationBindings.CURRENT_USER)
+    currentUser: UserProfile
+  ): Promise<UserProfile> {
+    return Promise.resolve(currentUser)
+  }
 }

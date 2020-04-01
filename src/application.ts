@@ -1,3 +1,4 @@
+import {AuthenticationComponent, registerAuthenticationStrategy} from '@loopback/authentication'
 import {BootMixin} from '@loopback/boot'
 import {ApplicationConfig} from '@loopback/core'
 import {RepositoryMixin} from '@loopback/repository'
@@ -5,6 +6,7 @@ import {RestApplication} from '@loopback/rest'
 import {RestExplorerBindings, RestExplorerComponent} from '@loopback/rest-explorer'
 import {ServiceMixin} from '@loopback/service-proxy'
 import path from 'path'
+import {JWTStrategy} from './authentication-strategies/jwt.strategy'
 import {MyServicesBindings, PasswordHasherBindings, TokenServiceBindings, TokenServiceConstants} from './keys'
 import {MySequence} from './sequence'
 import {BcryptHasher} from './services/hash.password.bcrypt'
@@ -16,6 +18,11 @@ export class Lb4AppApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options)
+
+    this.setupBindings()
+
+    this.component(AuthenticationComponent)
+    registerAuthenticationStrategy(this, JWTStrategy)
 
     // Set up the custom sequence
     this.sequence(MySequence)
@@ -39,6 +46,9 @@ export class Lb4AppApplication extends BootMixin(
         nested: true,
       },
     }
+  }
+
+  setupBindings(): void {
     this.bind(PasswordHasherBindings.PASSWORD_ROUNDS).to(10)
     this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptHasher)
     this.bind(MyServicesBindings.USER_SERVICE).toClass(MyUserService)
