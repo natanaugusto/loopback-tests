@@ -8,3 +8,5 @@ export * from './studant-department.controller';
 export * from './department.controller';
 export * from './studant-address.controller';
 export * from './user.controller';
+export * from './admin.controller';
+export * from './job.controller';

@@ -8,7 +8,7 @@ export async function migrate(args: string[]) {
   await app.boot();
   await app.migrateSchema({
     existingSchema,
-    models: ['Studant', 'Course', 'Department', 'Address', 'User']
+    models: ['Studant', 'Course', 'Department', 'Address', 'User', 'Job']
   });
 
   // Connectors usually keep a pool of opened connections,

@@ -33,7 +33,8 @@ export class MyUserService implements UserService<User, Credentials> {
   convertToUserProfile(user: User): UserProfile {
     const userProfile = {
       [securityId]: `${user.id}`,
-      name: user.name
+      name: user.name,
+      permissions: user.permissions
     }
     return userProfile
   }

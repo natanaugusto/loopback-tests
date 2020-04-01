@@ -5,6 +5,7 @@ import {inject} from '@loopback/core'
 import {repository} from '@loopback/repository'
 import {get, getJsonSchemaRef, post, requestBody} from '@loopback/rest'
 import {UserProfile} from '@loopback/security'
+import {PermissionKeys} from '../authorization/permission-keys'
 import {MyServicesBindings, PasswordHasherBindings, TokenServiceBindings} from '../keys'
 import {User} from '../models/user.model'
 import {Credentials, UserRepository} from '../repositories/user.repository'
@@ -41,6 +42,7 @@ export class UserController {
   })
   async signup(@requestBody() userData: User) {
     validateCredentials(userData)
+    userData.permissions = [PermissionKeys.AccessAuthFeatures]
     userData.password = await this.hasher.hashPassword(userData.password)
     const savedUser = await this.userRepository.create(userData)
     delete savedUser.password

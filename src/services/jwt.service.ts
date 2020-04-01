@@ -41,7 +41,8 @@ export class JWTService {
       const decryptedToken = await verifyAsync(token, this.jwtSecret)
       userProfile = Object.assign({
         [securityId]: decryptedToken.id,
-        name: decryptedToken.name
+        name: decryptedToken.name,
+        permissions: decryptedToken.permissions
       })
     } catch (err) {
       throw new HttpErrors.Unauthorized(
