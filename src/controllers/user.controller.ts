@@ -3,6 +3,7 @@
 import {inject} from '@loopback/core'
 import {repository} from '@loopback/repository'
 import {getJsonSchemaRef, post, requestBody} from '@loopback/rest'
+import {MyServicesBindings, PasswordHasherBindings, TokenServiceBindings} from '../keys'
 import {User} from '../models/user.model'
 import {Credentials, UserRepository} from '../repositories/user.repository'
 import {BcryptHasher} from '../services/hash.password.bcrypt'
@@ -18,11 +19,11 @@ export class UserController {
   constructor(
     @repository(UserRepository)
     public userRepository: UserRepository,
-    @inject('service.hasher')
+    @inject(PasswordHasherBindings.PASSWORD_HASHER)
     public hasher: BcryptHasher,
-    @inject('service.jwt')
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: JWTService,
-    @inject('services.user.service')
+    @inject(MyServicesBindings.USER_SERVICE)
     public userService: MyUserService
   ) {}
 

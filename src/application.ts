@@ -5,6 +5,7 @@ import {RestApplication} from '@loopback/rest'
 import {RestExplorerBindings, RestExplorerComponent} from '@loopback/rest-explorer'
 import {ServiceMixin} from '@loopback/service-proxy'
 import path from 'path'
+import {MyServicesBindings, PasswordHasherBindings, TokenServiceBindings, TokenServiceConstants} from './keys'
 import {MySequence} from './sequence'
 import {BcryptHasher} from './services/hash.password.bcrypt'
 import {JWTService} from './services/jwt.service'
@@ -38,11 +39,11 @@ export class Lb4AppApplication extends BootMixin(
         nested: true,
       },
     }
-    this.bind('rounds').to(10)
-    this.bind('service.jwt').toClass(JWTService)
-    this.bind('service.hasher').toClass(BcryptHasher)
-    this.bind('services.user.service').toClass(MyUserService)
-    this.bind('auth.jwt.secret').to('123qwer')
-    this.bind('auth.jwt.expiresIn').to('7h')
+    this.bind(PasswordHasherBindings.PASSWORD_ROUNDS).to(10)
+    this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptHasher)
+    this.bind(MyServicesBindings.USER_SERVICE).toClass(MyUserService)
+    this.bind(TokenServiceBindings.TOKEN_SERVICE).toClass(JWTService)
+    this.bind(TokenServiceBindings.TOKEN_SECRET).to(TokenServiceConstants.TOKEN_SECRET_VALUE)
+    this.bind(TokenServiceBindings.TOKEN_EXPIRES_IN).to(TokenServiceConstants.TOKEN_EXPIRES_IN_VALUE)
   }
 }
