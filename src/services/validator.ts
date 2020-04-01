@@ -1,8 +1,8 @@
 import {HttpErrors} from '@loopback/rest'
 import * as isEmail from 'isemail'
-import {Creadentials} from '../repositories/user.repository'
+import {Credentials} from '../repositories/user.repository'
 
-export function validateCredentials(credentials: Creadentials): void {
+export function validateCredentials(credentials: Credentials): void {
   if (!isEmail.validate(credentials.email)) {
     throw new HttpErrors.UnprocessableEntity('invalid Email')
   }

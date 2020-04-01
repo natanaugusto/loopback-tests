@@ -3,7 +3,7 @@ import {DefaultCrudRepository} from '@loopback/repository';
 import {MysqlDataSource} from '../datasources';
 import {User, UserRelations} from '../models';
 
-export type Creadentials = {
+export type Credentials = {
   email: string,
   password: string
 }
